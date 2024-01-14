@@ -6,16 +6,20 @@ import Cardcontent2 from "./card2";
 import Cardcontent3 from "./card3";
 import Page from "./page";
 import Mainfooter from "./footer";
+import { useState } from "react";
 
 export default function Mainindex(){
+    const [center , setCenter] = useState([{name: "bgcvbew"}, {name: "werdtfcvg"}]);
+
+
     return(
         <div>
             <Navigation />
             <Carousell />
             <Search />
-            <Cardcontent1 />
-            <Cardcontent2 />
-            <Cardcontent3 />
+            {center.map((c, ind) => (<Cardcontent1 center={c} key={ind}/>))}
+            {/* <Cardcontent2 /> */}
+            {/* <Cardcontent3 /> */}
             <Page />
             <Mainfooter />
         </div>

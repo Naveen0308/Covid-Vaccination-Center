@@ -19,7 +19,7 @@ export default function Bookslot(){
                         <div className="mb-2 block">
                         <Label htmlFor="Name" value="Patient Name:" />
                         </div>
-                        <TextInput id="name" type="text" maxLength={10} placeholder="Patient Name:" required />
+                        <TextInput id="name" type="text" placeholder="Patient Name:" required />
                     </div>
                     <div>
                         <div className="mb-2 block">

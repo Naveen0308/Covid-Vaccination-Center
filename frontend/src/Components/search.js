@@ -1,8 +1,16 @@
 import React from 'react';
 import { Button } from 'flowbite-react';
 import { HiOutlineArrowRight } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
 
 export default function Search() {
+  const navigate = useNavigate();
+
+  const handleCenterBookSlotClick = () => {
+    // Redirect to the '/centerform' route
+    navigate('/centerform');
+  };
+
   return (
     <div className="flex flex-col h-full">
       <div className="flex justify-center items-center h-full">
@@ -45,9 +53,8 @@ export default function Search() {
         </form>
       </div>
       <div className="ml-auto mt-auto">
-        <Button color="failure">
-          Add Centers
-          <HiOutlineArrowRight className="ml-2 h-5 w-5" />
+        <Button color="failure" onClick={handleCenterBookSlotClick}>
+          Add Centers<HiOutlineArrowRight className="ml-2 h-5 w-5" />
         </Button>
       </div>
     </div>

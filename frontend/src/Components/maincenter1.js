@@ -5,6 +5,7 @@ import logo1 from '../images/locationpointer.jpg'
 import { Carousel } from 'flowbite-react';
 
 export default function Center(){
+    const center = {};
     return(
         <div>
             <Navigation />
@@ -15,10 +16,10 @@ export default function Center(){
             </div>
             <h5 className="text-xl font-bold text-gray-900 dark:text-white mb-2 text-center">Available Slots</h5>
 
-            <RectangleCard />
-            <RectangleCard />
-            <RectangleCard />
-            <RectangleCard />
+            <RectangleCard center={center} slot={1}/>
+            <RectangleCard center={center} slot={2}/>
+            <RectangleCard center={center} slot={3}/>
+            <RectangleCard center={center} slot={4}/>
             <Mainfooter />
         </div>
     );
