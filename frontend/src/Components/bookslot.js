@@ -1,12 +1,47 @@
 import Navigation from "./navbar";
 import Mainfooter from "./footer";
 import { Button, Radio, Label, TextInput,Textarea,Card } from 'flowbite-react';
+import { useEffect, useState } from "react";
 
 
 
 
 export default function Bookslot(){
+    const [center, setCenter] = useState();
 
+    const fetchCenter = async() => {
+        // Get the pathname from the current URL
+        const pathname = window.location.pathname;
+    
+        // Extract the id from the pathname using a regular expression or other methods
+        const match = pathname.split('/')
+        console.log(match);
+        const idslot = match ? match[3].split("-") : null;
+        console.log(idslot);
+        const id = idslot[0];
+        const slot = idslot[1];
+        // Call the function to fetch the center based on the extracted ID
+        if (id!=null) {
+            try {
+                console.log("ertfvgbh");
+                const response = await fetch(`http://localhost:5000/api/get-center/${id.substring(1)}`);
+                console.log(response);
+                const data = await response.json();
+                if(!response.ok) throw new Error("fetch error");
+                console.log(data);
+                setCenter(data);
+            } catch (error) {
+                console.log(error);
+            }
+        } else {
+            console.error("No ID found in the URL");
+        }
+    };
+
+
+    useEffect(() => {
+        fetchCenter();
+    }, [])
     return(
         <div>
             <Navigation />

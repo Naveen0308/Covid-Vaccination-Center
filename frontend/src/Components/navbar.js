@@ -4,7 +4,7 @@ import logo from '../images/cc.png'
 export default function Navigation() {
   return (
     <Navbar fluid rounded>
-      <Navbar.Brand href="https://flowbite-react.com">
+      <Navbar.Brand href="/">
         <img src={logo} className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Vaccination Center</span>
       </Navbar.Brand>

@@ -9,7 +9,7 @@ export default function Cardcontent1({center}) {
 
   const handleBookSlotClick = () => {
     // Redirect to the '/Center' route
-    navigate(`/center:${center.id}`);
+    navigate(`/center/:${center.id}`);
   };
   return (
     <div className="flex justify-between">

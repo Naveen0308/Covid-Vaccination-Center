@@ -9,8 +9,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Mainindex />} />
-        <Route path="/center" element={<Center />} />
-        <Route path="/center/bookslot" element={<Bookslot />} />
+        <Route path="/center/:id" element={<Center />} />
+        <Route path="/center/bookslot/:id" element={<Bookslot />} />
         <Route path="/centerform" element={<CenterForm />} /> {/* Add this line for the centerform route */}
 
         {/* Define other routes */}
