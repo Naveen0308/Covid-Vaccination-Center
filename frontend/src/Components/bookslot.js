@@ -7,7 +7,13 @@ import { useEffect, useState } from "react";
 
 
 export default function Bookslot(){
-    const [center, setCenter] = useState();
+    const [center, setCenter] = useState({});
+    const [name , setName] = useState("");
+    const [phonenumber, setPhoneNumber] = useState("");
+    const [age, setAge] = useState("");
+    const [email, setEmail] = useState("");
+    const [address, setAddress] = useState("");
+    const [dose, setDose] = useState("Dose1");
 
     const fetchCenter = async() => {
         // Get the pathname from the current URL
@@ -38,6 +44,12 @@ export default function Bookslot(){
         }
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // console.log(name, phonenumber, age, email, address, center, dose);
+        
+    }
+
 
     useEffect(() => {
         fetchCenter();
@@ -54,43 +66,43 @@ export default function Bookslot(){
                         <div className="mb-2 block">
                         <Label htmlFor="Name" value="Patient Name:" />
                         </div>
-                        <TextInput id="name" type="text" placeholder="Patient Name:" required />
+                        <TextInput id="name" type="text" placeholder="Patient Name:" value={name} onChange={(e) => setName(e.target.value)} required />
                     </div>
                     <div>
                         <div className="mb-2 block">
                         <Label htmlFor="phonenumber" value="Phone Number:" />
                         </div>
-                        <TextInput id="phonenumber" type="text" placeholder="Phone Number:" required />
+                        <TextInput id="phonenumber" type="text" placeholder="Phone Number:" value={phonenumber} onChange={(e) => setPhoneNumber(e.target.value)} required />
                     </div>
                     <div>
                         <div className="mb-2 block">
                         <Label htmlFor="age" value="Age:" />
                         </div>
-                        <TextInput id="age" type="text" placeholder="Age:" required  />
+                        <TextInput id="age" type="text" placeholder="Age:" value={age} onChange={(e) => setAge(e.target.value)} required  />
                     </div>
                     <div>
                         <div className="mb-2 block">
                         <Label htmlFor="email1" value="Your Email:" />
                         </div>
-                        <TextInput id="email1" type="email" placeholder="Email:" required />
+                        <TextInput id="email1" type="email" placeholder="Email:" value={email} onChange={(e) => setEmail(e.target.value)} required />
                     </div>
                     <div className="max-w-md">
                             <div className="mb-2 block">
                                 <Label htmlFor="address" value="Your Address:" />
                             </div>
-                            <Textarea id="address" placeholder="Address" required rows={4} />
+                            <Textarea id="address" placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)} required rows={4} />
                             </div>
                     <div className="flex items-center gap-2">
                     <div className="flex items-center gap-2">
-                        <Radio id="dose1" name="dosage" value="Dose1" />
+                        <Radio id="dose1" name="dosage" value="Dose1" checked={dose==="Dose1"} onClick={(e) => setDose(e.target.value)}/>
                         <Label htmlFor="dose1">Dose 1</Label>
                     </div>
                     <div className="flex items-center gap-2">
-                        <Radio id="dose2" name="dosage" value="Dose2" />
+                        <Radio id="dose2" name="dosage" value="Dose2" checked={dose==="Dose2"} onClick={(e) => setDose(e.target.value)}/>
                         <Label htmlFor="dose2">Dose 2</Label>
                     </div>
                     </div>
-                    <Button type="submit">Confirm Slot</Button>
+                    <Button type="submit" onClick={handleSubmit}>Confirm Slot</Button>
                     </form>
                 </Card>
                 </div>
