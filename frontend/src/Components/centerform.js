@@ -16,7 +16,7 @@ export default function centerform(){
                         <div className="mb-2 block">
                         <Label htmlFor="CenterName" value="Center Name:" />
                         </div>
-                        <TextInput id="Centername" type="text" placeholder="Patient Name:" required />
+                        <TextInput id="Centername" type="text" placeholder="Center Name:" required />
                     </div>
                     <div>
                         <div className="mb-2 block">

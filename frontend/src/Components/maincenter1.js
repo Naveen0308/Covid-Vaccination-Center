@@ -13,6 +13,8 @@ export default function Center(){
         const pathname = window.location.pathname;
     
         // Extract the id from the pathname using a regular expression or other methods
+
+        
         const match = pathname.split('/')
         console.log(match);
         const id = match ? match[2] : null;

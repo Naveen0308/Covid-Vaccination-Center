@@ -42,8 +42,6 @@ export default function Cardcontent1({center}) {
           </Button>
         </Card>
       </div>
-
-      
     </div>
   
   );
