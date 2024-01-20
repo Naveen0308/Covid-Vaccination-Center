@@ -1,6 +1,9 @@
 import { Avatar, Dropdown, Navbar,Carousel,Button,Card } from 'flowbite-react';
 
 import { HiOutlineArrowRight } from 'react-icons/hi';
+import Navigation from './navbar';
+import Mainfooter from './footer';
+import Page from './page';
 import { useNavigate } from 'react-router-dom';
 import logo from '../images/cc.png'
 import logo1 from "../images/covid19-1.jpg";
@@ -26,40 +29,7 @@ const Mainpage = () => {
     <div>
 
         {/* Navbar */}
-        <Navbar fluid rounded>
-      <Navbar.Brand href="/">
-        <img src={logo} className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Vaccination Center</span>
-      </Navbar.Brand>
-      <div className="flex md:order-2">
-        <Dropdown
-          arrowIcon={false}
-          inline
-          label={
-            <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
-          }
-        >
-          <Dropdown.Header>
-            <span className="block text-sm">User</span>
-            <span className="block truncate text-sm font-medium">user@gmail.com</span>
-          </Dropdown.Header>
-          <Dropdown.Item>Dashboard</Dropdown.Item>
-          <Dropdown.Item>Settings</Dropdown.Item>
-          <Dropdown.Item>Earnings</Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Item>Sign out</Dropdown.Item>
-        </Dropdown>
-        <Navbar.Toggle />
-      </div>
-      <Navbar.Collapse>
-        <Navbar.Link href="/" active>
-          Home
-        </Navbar.Link>
-        <Navbar.Link href="#">About</Navbar.Link>
-        <Navbar.Link href="#">Services</Navbar.Link>
-        <Navbar.Link href="#">Contact</Navbar.Link>
-      </Navbar.Collapse>
-    </Navbar>
+       <Navigation />
           {/* Carousel */}
     <div className="flex justify-center items-center h-80 sm:h-96 xl:h-120 2xl:h-140 mr-5 ml-5 ">
       <Carousel pauseOnHover>
@@ -155,7 +125,8 @@ const Mainpage = () => {
             </Card>
         </div>
         </div>
-
+        <Page />
+      <Mainfooter />
     
     </div>
   )

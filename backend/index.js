@@ -95,7 +95,30 @@ app.post('/api/update/', async(req, res) => {
     } catch (error) {
         console.log(error);
     }
-})
+});
+
+app.post('/api/signup', async (req, res) => {
+    try {
+      const { name, username, email, password, confirmPassword } = req.body;
+  
+      // Check if password and confirmPassword match
+      if (password !== confirmPassword) {
+        return res.status(400).json({ error: 'Passwords do not match' });
+      }
+  
+      const hashedPassword = await bcrypt.hash(password, 10);
+  
+      const query = 'INSERT INTO users (name, username, email, password) VALUES (?, ?, ?, ?)';
+      const values = [name, username, email, hashedPassword];
+  
+      await executeQuery(query, values);
+  
+      res.status(201).json({ success: true, message: 'User registered successfully' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
 
 
 const port = process.env.PORT || 5000;

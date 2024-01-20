@@ -2,8 +2,6 @@ import Navigation from "./navbar";
 import Carousell from "./carousel";
 import Search from "./search";
 import Cardcontent1 from "./card1";
-import Cardcontent2 from "./card2";
-import Cardcontent3 from "./card3";
 import Page from "./page";
 import Mainfooter from "./footer";
 import { useEffect, useState } from "react";

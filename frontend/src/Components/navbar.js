@@ -1,7 +1,16 @@
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import logo from '../images/cc.png'
+import { useNavigate } from 'react-router-dom';
 
 export default function Navigation() {
+  const navigate = useNavigate();
+  const handleLogoutClick = () => {
+    // Perform login logic if needed
+    // ...
+
+    // Redirect to the mainindex page
+    navigate('/');
+  };
   return (
     <Navbar fluid rounded>
       <Navbar.Brand href="/">
@@ -24,7 +33,7 @@ export default function Navigation() {
           <Dropdown.Item>Settings</Dropdown.Item>
           <Dropdown.Item>Earnings</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item>Sign out</Dropdown.Item>
+          <Dropdown.Item onClick={handleLogoutClick}>Log out</Dropdown.Item>
         </Dropdown>
         <Navbar.Toggle />
       </div>
