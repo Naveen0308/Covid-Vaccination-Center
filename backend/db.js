@@ -1,40 +1,39 @@
-const mysql = require('mysql2/promise');
-const fs = require('fs');
+// db.js
+
+const mysql = require('mysql');
 const dotenv = require('dotenv');
+
 dotenv.config();
-// Database configuration
-const dbConfig = {
+
+// MySQL database connection
+const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  port: 3306,
-  ssl: { ca: fs.readFileSync('./DigiCertGlobalRootCA.crt.pem') },
-  connectionLimit: 10, // Adjust the connection limit as needed
+});
+
+// Connect to MySQL
+db.connect((err) => {
+  if (err) {
+    console.error('Error connecting to MySQL:', err);
+  } else {
+    console.log('Connected to MySQL');
+  }
+});
+
+// Function to execute a query
+const executeQuery = (sql, values = []) => {
+  return new Promise((resolve, reject) => {
+    db.query(sql, values, (err, result) => {
+      if (err) {
+        console.error('Error executing MySQL query:', err);
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
 };
 
-// console.log(dbConfig);
-// Create a connection pool
-const pool = mysql.createPool(dbConfig);
-
-const executeQuery = async(query) => {
-  let connection;
-  try {
-    connection = await pool.getConnection();
-
-    const [rows] = await connection.execute(query);
-    // console.log("first");
-    return rows;
-  } catch (error) {
-    // Handle the error or log it
-    console.error('Error executing query:', error.message);
-    throw error; // Re-throw the error to be handled by the calling code
-  } finally {
-    if (connection) {
-      connection.release(); // Always release the connection, even if an error occurred
-    }
-  }
-}
-
-// Export the executeQuery function for use in other modules
 module.exports = { executeQuery };
