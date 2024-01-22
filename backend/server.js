@@ -27,14 +27,14 @@ app.use((req, res, next) => {
 // Endpoint to handle user signup
 app.post('/api/signup', async (req, res) => {
     try {
-      const { name, username, email, password, confirmPassword } = req.body;
+      const { name, username, email, password} = req.body;
   
       // Log received data
-      console.log('Received data:', req.body);
+      //console.log('Received data:', req.body);
   
-      if (password !== confirmPassword) {
-        return res.status(400).json({ error: 'Passwords do not match' });
-      }
+      //if (password !== confirmPassword) {
+       // return res.status(400).json({ error: 'Passwords do not match' });
+      //}
 
     //const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -49,7 +49,40 @@ app.post('/api/signup', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-// Start the server
+
+
+
+
+
+// handling user login
+
+app.post('/api/login', async (req, res) => {
+    try {
+      const { email, password } = req.body;
+  
+      const user = await executeQuery('SELECT * FROM users WHERE email = ?', [email]);
+  
+      if (user.length === 0) {
+        return res.status(401).json({ error: 'Incorrect email or password' });
+      }
+  
+      const passwordMatch = await bcrypt.compare(password, user[0].password);
+  
+      if (!passwordMatch) {
+        return res.status(401).json({ error: 'Incorrect email or password' });
+      }
+  
+      res.status(200).json({ success: true, message: 'Login successful' });
+    } catch (error) {
+      console.error('Error during login:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
+  
+
+
+  // Start the server
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+    console.log(`Server is running on port ${port}`);
+  });
