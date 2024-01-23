@@ -1,8 +1,11 @@
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import logo from '../images/cc.png'
 import { useNavigate } from 'react-router-dom';
+import { useContext } from "react";
+import UserContext from "../UserContext";
 
 export default function Navigation() {
+  const {emailId,_} = useContext(UserContext);
   const navigate = useNavigate();
   const handleLogoutClick = () => {
     // Perform login logic if needed
@@ -27,7 +30,7 @@ export default function Navigation() {
         >
           <Dropdown.Header>
             <span className="block text-sm">User</span>
-            <span className="block truncate text-sm font-medium">user@gmail.com</span>
+            <span className="block truncate text-sm font-medium">{emailId}</span>
           </Dropdown.Header>
           <Dropdown.Item>Dashboard</Dropdown.Item>
           <Dropdown.Item>Settings</Dropdown.Item>
@@ -43,7 +46,7 @@ export default function Navigation() {
         </Navbar.Link>
         <Navbar.Link href="#">About</Navbar.Link>
         <Navbar.Link href="#">Services</Navbar.Link>
-        <Navbar.Link href="#">Contact</Navbar.Link>
+        <Navbar.Link href="/mainfooter">Contact</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );

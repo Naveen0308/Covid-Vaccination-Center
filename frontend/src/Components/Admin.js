@@ -1,17 +1,23 @@
+import React from 'react';
 import { Button, Card, Label, TextInput, Checkbox } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
+import UserContext from '../UserContext';
+import { useContext } from 'react';
 
-export default function Admin() {
+const Admin = () => {
   const navigate = useNavigate();
+  let {userId,setUserId} = useContext(UserContext);
 
   const handleAdminClick = () => {
     // Perform login logic
     const enteredEmail = document.getElementById('email1').value;
     const enteredPassword = document.getElementById('password1').value;
-
+    setUserId(1);
+    console.log(userId);
     // Check if email and password are valid (replace this with your actual logic)
     if (enteredEmail === 'abc@gmail.com' && enteredPassword === 'positivity') {
       // Redirect to the mainindex page
+
       navigate('/mainindex');
     } else {
       // Display alert for invalid credentials
@@ -51,3 +57,5 @@ export default function Admin() {
     </div>
   );
 }
+
+export default Admin;

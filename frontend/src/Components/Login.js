@@ -1,8 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Button, Card, Label, TextInput, Checkbox } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
+import UserContext from '../UserContext';
 
 export default function Login() {
+
+  const {userId, setUserId} = useContext(UserContext);
+  const {emailId,setEmailId}=useContext(UserContext);
+  //console.log(userId);  
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
@@ -33,6 +38,11 @@ export default function Login() {
       });
   
       if (response.ok) {
+        setUserId(0);
+        const data = await response.json();
+
+      // Update the context with the logged-in user's email
+      setEmailId(data.email);
         navigate('/mainindex');
       } else {
         const data = await response.json();

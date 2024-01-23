@@ -26,7 +26,13 @@ export default function Signup() {
   
       // Log the form data to check values
       console.log('Form Data:', formData);
-  
+      
+      if (!name || !username || !email || !password || !confirmPassword) {
+        alert('Please fill in all fields.');
+        return;
+      }
+
+
       if (password !== confirmPassword) {
         // Display an error message to the user
         alert('Passwords do not match. Please check your passwords and try again.');

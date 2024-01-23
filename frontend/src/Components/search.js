@@ -1,21 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from 'flowbite-react';
 import { HiOutlineArrowRight } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import UserContext from '../UserContext';
 
-export default function Search() {
+export default function Search({ allCenters, setFilteredCenters }) {
   const navigate = useNavigate();
+  const { userId } = useContext(UserContext);
+
+  const [searchLocation, setSearchLocation] = useState('');
 
   const handleCenterBookSlotClick = () => {
-    // Redirect to the '/centerform' route
     navigate('/centerform');
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+
+    if (searchLocation.trim() === '') {
+      // If the search location is empty, show all centers
+      setFilteredCenters(allCenters);
+    } else {
+      // Filter centers based on the entered location
+      const filteredCenters = allCenters.filter((center) =>
+        center.location.toLowerCase().includes(searchLocation.toLowerCase())
+      );
+
+      // Set the filtered centers using the provided setter function
+      setFilteredCenters(filteredCenters);
+
+      // Handle the filtered centers (you can pass them to the parent component, etc.)
+      console.log(filteredCenters);
+    }
   };
 
   return (
     <div className="flex flex-col h-full">
       <div className="flex justify-center items-center h-full">
-        <form>
-          <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
+        <form onSubmit={handleSearchSubmit}>
+          <label
+            htmlFor="default-search"
+            className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+          >
             Search
           </label>
           <div className="relative">
@@ -40,8 +67,9 @@ export default function Search() {
               type="search"
               id="default-search"
               className="block w-80 p-4 pl-10 pt-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search"
-              required
+              placeholder="Search by Location"
+              value={searchLocation}
+              onChange={(e) => setSearchLocation(e.target.value)} 
             />
             <button
               type="submit"
@@ -53,9 +81,11 @@ export default function Search() {
         </form>
       </div>
       <div className="ml-auto mt-auto">
-        <Button color="failure" onClick={handleCenterBookSlotClick}>
-          Add Centers<HiOutlineArrowRight className="ml-2 h-5 w-5" />
-        </Button>
+        {userId === 1 ? (
+          <Button color="failure" onClick={handleCenterBookSlotClick}>
+            Add Centers<HiOutlineArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+        ) : null}
       </div>
     </div>
   );
