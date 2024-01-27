@@ -3,12 +3,13 @@ import { Card, Button } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
 import carouselImage from '../images/locationpointer.jpg';
 
-const Cardcontent1 = ({ center }) => {
+const Cardcontent1 = ({ center,centerId }) => {
   const navigate = useNavigate();
 
   const handleBookSlotClick = () => {
     // Assuming your center object has an 'id' property
-    navigate(`/center/${center.id}`);
+    console.log(centerId);
+    navigate(`/center/${centerId}`);
   };
 
   return (
@@ -24,7 +25,7 @@ const Cardcontent1 = ({ center }) => {
           Available Slot: 4
         </p>
         <Button onClick={handleBookSlotClick}>
-          Book Slot
+          Book Center
           <svg
             className="-mr-1 ml-2 h-4 w-4"
             fill="currentColor"

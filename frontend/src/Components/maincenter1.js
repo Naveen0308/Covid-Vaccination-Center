@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 export default function Center(){
     const [center, setCenter] = useState();
+    const [id,setId] = useState();
 
     const fetchCenter = async() => {
         // Get the pathname from the current URL
@@ -19,23 +20,27 @@ export default function Center(){
         console.log(match);
         const id = match ? match[2] : null;
         console.log(id);
+        setId(id);
+        console.log("centerId:",id);
         // Call the function to fetch the center based on the extracted ID
-        if (id!=null) {
-            try {
-                console.log("ertfvgbh");
-                const response = await fetch(`http://localhost:5000/api/get-center/${id.substring(1)}`);
-                console.log(response);
-                const data = await response.json();
-                if(!response.ok) throw new Error("fetch error");
-                console.log(data);
-                setCenter(data);
-            } catch (error) {
-                console.log(error);
-            }
-        } else {
-            console.error("No ID found in the URL");
-        }
-    };
+  if (id != null) {
+    try {
+      const response = await fetch(`http://localhost:5000/api/get-center/${id.substring(1)}`);
+      console.log(response);
+
+      if (!response.ok) throw new Error("fetch error");
+
+      const data = await response.json();
+      console.log(data);
+
+      setCenter(data);
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    console.error("No ID found in the URL");
+  }
+};
     useEffect(() => {
         fetchCenter();
     }, [])
@@ -50,10 +55,10 @@ export default function Center(){
             </div>
             <h5 className="text-xl font-bold text-gray-900 dark:text-white mb-2 text-center">Available Slots</h5>
 
-            <RectangleCard center={center} slot={1}/>
-            <RectangleCard center={center} slot={2}/>
-            <RectangleCard center={center} slot={3}/>
-            <RectangleCard center={center} slot={4}/>
+            <RectangleCard center={center} slot={1} centerId={id}/>
+            <RectangleCard center={center} slot={2} centerId={id}/>
+            <RectangleCard center={center} slot={3} centerId={id}/>
+            <RectangleCard center={center} slot={4} centerId={id}/>
             <Mainfooter />
         </div>
     );

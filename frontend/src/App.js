@@ -4,9 +4,10 @@ import Center from './Components/maincenter1';
 import Bookslot from './Components/bookslot';
 import CenterForm from './Components/centerform'; // Import the CenterForm component
 import Login from './Components/Login';
-import Mainpage from './Components/Mainpage';
 import Admin from './Components/Admin';
 import Signup from './Components/Signup';
+import Profile from './Components/Profile';
+import Result from './Components/Result';
 
 function App() {
   return (
@@ -17,9 +18,10 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/mainindex" element={<Mainindex />} />
         <Route path="/center/:id" element={<Center />} />
-        <Route path="/center/bookslot/:id" element={<Bookslot />} />
+        <Route path="/:centerId/bookslot/:id" element={<Bookslot />} />
         <Route path="/centerform" element={<CenterForm />} /> {/* Add this line for the centerform route */}
-        <Route path="/mainpg" element={<Mainpage />} /> {/* Add this line for the centerform route */}
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/result" element={<Result />} />
 
         {/* Define other routes */}
       </Routes>

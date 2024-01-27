@@ -6,6 +6,7 @@ import UserContext from "../UserContext";
 
 export default function Navigation() {
   const {emailId,_} = useContext(UserContext);
+  //console.log(emailId);
   const navigate = useNavigate();
   const handleLogoutClick = () => {
     // Perform login logic if needed
@@ -13,6 +14,9 @@ export default function Navigation() {
 
     // Redirect to the mainindex page
     navigate('/');
+  };
+  const handleuserPofile=()=>{
+    navigate('/profile');
   };
   return (
     <Navbar fluid rounded>
@@ -32,9 +36,7 @@ export default function Navigation() {
             <span className="block text-sm">User</span>
             <span className="block truncate text-sm font-medium">{emailId}</span>
           </Dropdown.Header>
-          <Dropdown.Item>Dashboard</Dropdown.Item>
-          <Dropdown.Item>Settings</Dropdown.Item>
-          <Dropdown.Item>Earnings</Dropdown.Item>
+          <Dropdown.Item onClick={handleuserPofile}>Profile</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item onClick={handleLogoutClick}>Log out</Dropdown.Item>
         </Dropdown>
@@ -46,7 +48,7 @@ export default function Navigation() {
         </Navbar.Link>
         <Navbar.Link href="#">About</Navbar.Link>
         <Navbar.Link href="#">Services</Navbar.Link>
-        <Navbar.Link href="/mainfooter">Contact</Navbar.Link>
+        <Navbar.Link href="#footer">Contact</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );

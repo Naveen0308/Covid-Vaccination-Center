@@ -8,7 +8,7 @@ import UserContext from '../UserContext';
 export default function Search({ allCenters, setFilteredCenters }) {
   const navigate = useNavigate();
   const { userId } = useContext(UserContext);
-
+  console.log("search userid",userId);
   const [searchLocation, setSearchLocation] = useState('');
 
   const handleCenterBookSlotClick = () => {
@@ -69,7 +69,11 @@ export default function Search({ allCenters, setFilteredCenters }) {
               className="block w-80 p-4 pl-10 pt-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search by Location"
               value={searchLocation}
-              onChange={(e) => setSearchLocation(e.target.value)} 
+              onChange={(e) =>{
+                setSearchLocation(e.target.value)
+                handleSearchSubmit(e);
+              }
+              } 
             />
             <button
               type="submit"
@@ -81,7 +85,7 @@ export default function Search({ allCenters, setFilteredCenters }) {
         </form>
       </div>
       <div className="ml-auto mt-auto">
-        {userId === 1 ? (
+        {userId === 0 ? (
           <Button color="failure" onClick={handleCenterBookSlotClick}>
             Add Centers<HiOutlineArrowRight className="ml-2 h-5 w-5" />
           </Button>

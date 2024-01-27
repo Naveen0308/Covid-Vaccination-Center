@@ -5,7 +5,7 @@ import logo from '../images/cc.png'
 
 export default function Mainfooter() {
   return (
-    <Footer container>
+    <Footer container id="footer">
       <div className="w-full">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
           <div>

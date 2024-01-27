@@ -71,8 +71,9 @@ app.post('/api/login', async (req, res) => {
       if (!passwordMatch) {
         return res.status(401).json({ error: 'Incorrect email or password' });
       }
-  
-      res.status(200).json({ success: true,email:user[0].email, message: 'Login successful' });
+      console.log("from backend", user)
+      console.log("userid",user.id);
+      res.status(200).json({ success: true,email:user[0].email, userId:user[0].id, message: 'Login successfully done' });
     } catch (error) {
       console.error('Error during login:', error);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -111,8 +112,103 @@ app.post('/api/login', async (req, res) => {
 
 
 
+  app.post('/api/add-center', async (req, res) => {
+    try {
+      const { centerName, location, centerAddress } = req.body;
+      const query = 'INSERT INTO centers (name, location, address) VALUES (?, ?, ?)';
+      const values = [centerName, location, centerAddress];
+      await executeQuery(query, values);
+      res.status(201).json({ success: true, message: 'Center added successfully' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
+  app.get('/api/all-center', async (req, res) => {
+    try {
+      const centers = await executeQuery('SELECT * FROM centers');
+      res.status(200).json({ success: true, centers });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
+  app.get('/api/get-center/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const center = await executeQuery('SELECT * FROM centers WHERE id = ?', [id]);
+  
+      if (center.length === 0) {
+        return res.status(404).json({ error: 'Center not found' });
+      }
+  
+      res.status(200).json({ success: true, center: center[0] });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
+  app.post('/api/book-slot', async (req, res) => {
+    try {
+      console.log(req.body);
+      let { userId, center_id, name, phonenumber, age, date, email, address, dose } = req.body;
+      // center_id += 1;   
+      console.log("userId",userId);
+      const query = `
+        INSERT INTO booked_slots (user_id,center_id, user_name, phone_number, age, date, email, address, dose)
+        VALUES (?,?, ?, ?, ?, ?, ?, ?, ?)
+      `;
+      const values = [userId,center_id, name, phonenumber, age, date, email, address, dose];
+  
+      await executeQuery(query, values);
+  
+      res.status(201).json({ success: true, message: 'Slot booked successfully' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });  
 
-  // Start the server
+  app.get('/api/getUser/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const user = await executeQuery('SELECT * FROM users WHERE id = ?', [id]);
+      const bookings = await executeQuery('SELECT * FROM booked_slots WHERE user_id = ?', [id]);
+      console.log("userdata:", user);
+      if (user.length === 0) {
+        return res.status(404).json({ error: 'Center not found' });
+      }
+  
+      res.status(200).json({ success: true, user: user[0], bookings:bookings });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+  app.get('api/getBookings/:id', async (req, res) => {
+    try {
+
+      const { id } = req.params;
+      const bookedSlots = await executeQuery('SELECT * FROM booked_slots WHERE user_id = ?', [id]);
+      console.log("booked Slots:", bookedSlots);
+      if (user.length === 0) {
+        return res.status(404).json({ error: 'Center not found' });
+      }
+  
+      res.status(200).json({ success: true, user: bookedSlots });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+
+
+  // Start the server 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
   });

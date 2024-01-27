@@ -7,7 +7,8 @@ export default function Login() {
 
   const {userId, setUserId} = useContext(UserContext);
   const {emailId,setEmailId}=useContext(UserContext);
-  //console.log(userId);  
+  console.log(userId);  
+  console.log(emailId)
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
@@ -38,11 +39,12 @@ export default function Login() {
       });
   
       if (response.ok) {
-        setUserId(0);
         const data = await response.json();
-
-      // Update the context with the logged-in user's email
-      setEmailId(data.email);
+        console.log("logged in user data:",data);
+        
+        // Update the context with the logged-in user's email
+        setEmailId(data.email);
+        setUserId(data.userId);
         navigate('/mainindex');
       } else {
         const data = await response.json();
