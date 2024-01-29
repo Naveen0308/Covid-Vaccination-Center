@@ -44,7 +44,7 @@ app.post('/api/signup', async (req, res) => {
     await executeQuery(query, values);
 
     res.status(201).json({ success: true, message: 'User registered successfully' });
-} catch (error) {
+} catch (error) { 
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
@@ -123,7 +123,28 @@ app.post('/api/login', async (req, res) => {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
+  });     
+
+    
+  app.post('/api/deleteCenter/:id',async(req,res) => {
+    try{
+      const {id}=req.params;
+      console.log(id);
+      const del1 = await executeQuery('DELETE FROM booked_slots WHERE center_id=?',[id]);
+      //const sel1=await executeQuery('SELECT * FROM centers WHERE id=?',[id]);
+      //console.log(sel1);
+      const del2 = await executeQuery('DELETE FROM centers WHERE id=?',[id]);
+      console.log(del1);
+      console.log(del2);
+      res.status(200).json({ success: true});
+  
+    }        
+    catch (error) {
+      console.error(error); 
+      res.status(500).json({ error: 'Internal Server Error' });  
+    }  
   });
+
   
   app.get('/api/all-center', async (req, res) => {
     try {
@@ -154,14 +175,14 @@ app.post('/api/login', async (req, res) => {
   app.post('/api/book-slot', async (req, res) => {
     try {
       console.log(req.body);
-      let { userId, center_id, name, phonenumber, age, date, email, address, dose } = req.body;
+      let { userId, center_id, slotid, name, phonenumber, age, date, email, address, dose } = req.body;
       // center_id += 1;   
       console.log("userId",userId);
       const query = `
-        INSERT INTO booked_slots (user_id,center_id, user_name, phone_number, age, date, email, address, dose)
-        VALUES (?,?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO booked_slots (user_id,center_id, user_name, phone_number, age, date, email, address, dose,slot_id)
+        VALUES (?,?, ?, ?, ?, ?, ?, ?, ?,?)
       `;
-      const values = [userId,center_id, name, phonenumber, age, date, email, address, dose];
+      const values = [userId,center_id, name, phonenumber, age, date, email, address, dose,slotid];
   
       await executeQuery(query, values);
   
@@ -172,22 +193,62 @@ app.post('/api/login', async (req, res) => {
     }
   });  
 
+
   app.get('/api/getUser/:id', async (req, res) => {
     try {
       const { id } = req.params;
       const user = await executeQuery('SELECT * FROM users WHERE id = ?', [id]);
-      const bookings = await executeQuery('SELECT * FROM booked_slots WHERE user_id = ?', [id]);
+      const bookings = await executeQuery('SELECT B.*, C.location,C.address,C.name FROM booked_slots AS B JOIN centers AS C ON B.center_id=C.id WHERE user_id = ?', [id]);
       console.log("userdata:", user);
+      if (user.length === 0) {
+        return res.status(404).json({ error: 'Center not found' });
+      }
+         
+      res.status(200).json({ success: true, user: user[0], bookings:bookings });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' }); 
+    }
+  });
+ 
+  app.get('/api/getUser/currentBooking/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      console.log("rtyuytf");
+      const user = await executeQuery('SELECT * FROM users WHERE id = ?', [id]);
+      const bookings = await executeQuery('SELECT B.*, C.name,C.location,C.address FROM booked_slots AS B JOIN centers AS C ON B.center_id=C.id WHERE user_id = ? ORDER BY B.id DESC LIMIT 1', [id]);
+      console.log("bookings:", bookings);
       if (user.length === 0) {
         return res.status(404).json({ error: 'Center not found' });
       }
   
       res.status(200).json({ success: true, user: user[0], bookings:bookings });
     } catch (error) {
-      console.error(error);
+      console.error(error); 
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+  
+
+    
+  app.post('/api/cancelBooking/:id',async(req,res) => {
+    try{
+      const {id}=req.params;
+      const del = await executeQuery('DELETE FROM booked_slots WHERE id=?',[id]);
+      console.log(del);
+      res.status(200).json({ success: true});
+
+    }
+    catch (error) {
+      console.error(error); 
+      res.status(500).json({ error: 'Internal Server Error' });
+    }  
+  });
+ 
+
+
+
+
 
   app.get('api/getBookings/:id', async (req, res) => {
     try {

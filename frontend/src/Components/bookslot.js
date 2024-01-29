@@ -17,10 +17,12 @@ const Bookslot = () => {
   const {userId} = useContext(UserContext);
   const navigate = useNavigate();
 
+  
   const pathname = window.location.pathname;
   const match = pathname.split('/');
   const id = match ? match[3] : null;
   const centerId = match ? match[1] : 0;
+  console.log(match);
   const fetchCenter = async () => {
     // const id = idslot[0];
 
@@ -34,7 +36,7 @@ const Bookslot = () => {
         }
 
         // Find the specific center based on the id
-        const selectedCenter = data.center.find(center => center.id === parseInt(id, 10));
+        const selectedCenter = data.center.find(center => center.id === parseInt(centerId, 10));
 
         if (selectedCenter) {
           setCenter(selectedCenter);
@@ -67,6 +69,7 @@ const Bookslot = () => {
         body: JSON.stringify({
           userId,
           center_id: centerId,
+          slotid:id,
           name,
           phonenumber,
           age,

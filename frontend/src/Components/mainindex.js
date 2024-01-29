@@ -59,7 +59,7 @@ export default function Mainindex() {
 
   useEffect(() => {
     fetchCenters();
-  }, [searchLocation]);
+  }, [searchLocation,]);
 
   // Calculate the indexes of the first and last centers on the current page
   const indexOfLastCenter = currentPage * centersPerPage;
@@ -141,7 +141,7 @@ export default function Mainindex() {
 
       <div className="flex flex-wrap justify-around p-4">
         {currentCenters.length > 0 ? (
-          currentCenters.map((c, ind) => <Cardcontent1 center={c} key={ind} centerId={ind+1} />)
+          currentCenters.map((c, ind) => <Cardcontent1 center={c} key={ind} centerId={c.id} />)
         ) : (
           <p className="text-center text-gray-700 dark:text-gray-300">
             No center is available in that place.
