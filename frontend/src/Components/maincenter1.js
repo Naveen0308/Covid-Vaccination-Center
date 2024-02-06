@@ -8,7 +8,8 @@ import { useEffect, useState } from "react";
 export default function Center(){
     const [center, setCenter] = useState();
     const [id,setId] = useState();
-
+    const [date,setDate] = useState(Date.now());
+    console.log(date);
     const fetchCenter = async() => {
         // Get the pathname from the current URL
         const pathname = window.location.pathname;
@@ -25,7 +26,7 @@ export default function Center(){
         // Call the function to fetch the center based on the extracted ID
   if (id != null) {
     try {
-      const response = await fetch(`http://localhost:5000/api/get-center/${id.substring(1)}`);
+      const response = await fetch(`http://localhost:5000/api/get-center/${id}`);
       console.log(response);
 
       if (!response.ok) throw new Error("fetch error");
@@ -43,6 +44,7 @@ export default function Center(){
 };
     useEffect(() => {
         fetchCenter();
+        setDate(Date.now());
     }, [])
     
     return(
@@ -54,11 +56,15 @@ export default function Center(){
                 </Carousel>
             </div>
             <h5 className="text-xl font-bold text-gray-900 dark:text-white mb-2 text-center">Available Slots</h5>
+            <div className="text-right mb-4 mr-5">
+               <label className="mr-2">Date:</label>
+                  <input type="date" name="date" className="border border-gray-300 p-1 rounded-md" value={date} onChange={(e) => setDate(e.target.value)}/>
+              </div>
 
-            <RectangleCard center={center} slot={1} centerId={id}/>
-            <RectangleCard center={center} slot={2} centerId={id}/>
-            <RectangleCard center={center} slot={3} centerId={id}/>
-            <RectangleCard center={center} slot={4} centerId={id}/>
+            <RectangleCard center={center} slot={1} centerId={id} date={date}/>
+            <RectangleCard center={center} slot={2} centerId={id} date={date}/>
+            <RectangleCard center={center} slot={3} centerId={id} date={date}/>
+            <RectangleCard center={center} slot={4} centerId={id} date={date}/>
             <Mainfooter />
         </div>
     );

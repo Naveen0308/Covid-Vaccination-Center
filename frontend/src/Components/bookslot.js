@@ -10,7 +10,7 @@ const Bookslot = () => {
   const [name, setName] = useState("");
   const [phonenumber, setPhoneNumber] = useState("");
   const [age, setAge] = useState("");
-  const [date,setDate] = useState("");
+  // const [date,setDate] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [dose, setDose] = useState("Dose1");
@@ -22,6 +22,7 @@ const Bookslot = () => {
   const match = pathname.split('/');
   const id = match ? match[3] : null;
   const centerId = match ? match[1] : 0;
+  const date = match ? match[4] : null;
   console.log(match);
   const fetchCenter = async () => {
     // const id = idslot[0];
@@ -123,12 +124,12 @@ const Bookslot = () => {
               </div>
               <TextInput id="age" type="text" placeholder="Age:" value={age} onChange={(e) => setAge(e.target.value)} required />
             </div>
-            <div>
+            {/* <div>
               <div className="mb-2 block">
                 <Label htmlFor="date" value="Date:" />
               </div>
               <TextInput id="date" type="text" placeholder="DD/MM/YYYY" value={date} onChange={(e) => setDate(e.target.value)} required />
-            </div>
+            </div> */}
             <div>
               <div className="mb-2 block">
                 <Label htmlFor="email1" value="Your Email:" />

@@ -7,7 +7,7 @@ const cors = require('cors'); // Import cors
 
 dotenv.config();
 
-const app = express();
+const app = express(); 
 const port = process.env.PORT || 5000;
 
 // Middleware
@@ -229,8 +229,8 @@ app.post('/api/login', async (req, res) => {
     }
   });
   
-
-    
+ 
+     
   app.post('/api/cancelBooking/:id',async(req,res) => {
     try{
       const {id}=req.params;
@@ -245,9 +245,9 @@ app.post('/api/login', async (req, res) => {
     }  
   });
  
+ 
 
-
-
+ 
 
 
   app.get('api/getBookings/:id', async (req, res) => {
@@ -268,6 +268,25 @@ app.post('/api/login', async (req, res) => {
   });
 
 
+
+  app.get('/api/get-slot/:centerId/:slot/:date', async (req, res) => {
+    try {
+      const { centerId, slot, date } = req.params;
+      console.log("centerId", centerId, "slot", slot, "date", date);
+      const newDate=date.split("-");
+      console.log(newDate);
+      const dates=`${newDate[2]}/${newDate[1]}/${newDate[0]}`
+      console.log(dates);
+      const response = await executeQuery('SELECT * FROM booked_slots WHERE center_id = ? AND slot_id = ? AND date = ?', [centerId, slot, date]);
+            console.log(response);
+      res.status(200).json({ success: true, data: response });
+    }catch (err){
+      console.log(err); 
+      res.status(500).json({ error: 'Internal Server Error' });
+
+    }
+  });
+ 
 
   // Start the server 
 app.listen(port, () => {

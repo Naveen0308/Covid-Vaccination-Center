@@ -18,7 +18,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/mainindex" element={<Mainindex />} />
         <Route path="/center/:id" element={<Center />} />
-        <Route path="/:centerId/bookslot/:id" element={<Bookslot />} />
+        <Route path="/:centerId/bookslot/:id/:date" element={<Bookslot />} />
         <Route path="/centerform" element={<CenterForm />} /> {/* Add this line for the centerform route */}
         <Route path="/profile" element={<Profile />} />
         <Route path="/result" element={<Result />} />
