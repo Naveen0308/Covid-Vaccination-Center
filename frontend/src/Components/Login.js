@@ -105,10 +105,10 @@ export default function Login() {
                 <Button type="button" className="px-4" onClick={handleLoginClick}>
                   Login
                 </Button>
-                <Button type="submit" className="px-4" onClick={handleAdminClick}>
+                <Button type="button" className="px-4" onClick={handleAdminClick}>
                   Admin User
                 </Button>
-                <Button type="submit" className="px-4" onClick={handleSignupClick}>
+                <Button type="button" className="px-4" onClick={handleSignupClick}>
                   Sign Up
                 </Button>
               </div>

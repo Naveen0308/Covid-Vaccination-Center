@@ -63,16 +63,16 @@ app.post('/api/login', async (req, res) => {
       const user = await executeQuery('SELECT * FROM users WHERE email = ?', [email]);
   
       if (user.length === 0) {
-        return res.status(401).json({ error: 'NoPassword!' });
-      }
+        return res.status(401).json({ error: 'NoPassword!' });  
+      }  
       console.log(password, user[0].password)
       const passwordMatch = password === (user[0].password) ? 1 : 0;
       console.log(passwordMatch)
       if (!passwordMatch) {
         return res.status(401).json({ error: 'Incorrect email or password' });
       }
-      console.log("from backend", user)
-      console.log("userid",user.id);
+      console.log("from backend", user[0])
+      console.log("userid",user[0].id);
       res.status(200).json({ success: true,email:user[0].email, userId:user[0].id, message: 'Login successfully done' });
     } catch (error) {
       console.error('Error during login:', error);

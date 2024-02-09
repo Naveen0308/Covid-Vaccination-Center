@@ -156,7 +156,9 @@ const Bookslot = () => {
           </form>
         </Card>
       </div>
+      <section id='sec-contact'>
       <Mainfooter />
+      </section>
     </div>
   );
 }

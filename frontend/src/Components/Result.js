@@ -76,7 +76,9 @@ const Result = () => {
           </div>
         </Card>
       </div>
+      <section id='sec-contact'>
       <Mainfooter />
+      </section>
     </div>
   );
 };

@@ -1,9 +1,12 @@
 import { Carousel } from 'flowbite-react';
 import logo1 from "../images/covid19-1.jpg";
-import logo2 from "../images/covid19-2.jpg";
+import logo2 from "../images/covid19-2.png";
 import logo3 from "../images/covid19-3.jpg";
 import logo4 from "../images/covid19-4.jpg"
 import logo5 from "../images/covid19-5.jpg"
+import logo6 from '../images/covid19-6.jpg'
+import logo7 from '../images/covid19-7.jpg'
+
 
 export default function Carousell() {
   return (
@@ -15,6 +18,8 @@ export default function Carousell() {
         <img src= {logo3} alt="..." />
         <img src = {logo4} alt="..." />
         <img src = {logo5} alt="..." />
+        <img src = {logo6} alt="..." />
+        <img src = {logo7} alt="..." />
       </Carousel>
     </div>
     <div>

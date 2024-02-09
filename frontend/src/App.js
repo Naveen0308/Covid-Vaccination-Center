@@ -8,6 +8,7 @@ import Admin from './Components/Admin';
 import Signup from './Components/Signup';
 import Profile from './Components/Profile';
 import Result from './Components/Result';
+import About from './Components/About';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/centerform" element={<CenterForm />} /> {/* Add this line for the centerform route */}
         <Route path="/profile" element={<Profile />} />
         <Route path="/result" element={<Result />} />
+        <Route path="/about" element={<About />} />
 
         {/* Define other routes */}
       </Routes>

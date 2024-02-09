@@ -1,5 +1,5 @@
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
-import logo from '../images/cc.png'
+import logo from '../images/VCB.png'
 import { useNavigate } from 'react-router-dom';
 import { useContext } from "react";
 import UserContext from "../UserContext";
@@ -18,11 +18,14 @@ export default function Navigation() {
   const handleuserPofile=()=>{
     navigate('/profile');
   };
+  const handleAboutClick = () => {
+    navigate('/about');
+  }
   return (
     <Navbar fluid rounded>
       <Navbar.Brand href="/">
-        <img src={logo} className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Vaccination Center</span>
+        <img src={logo} className="mr-3 h-12 sm:h-16" alt="Flowbite React Logo" />
+        {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Vaccination Center</span> */}
       </Navbar.Brand>
       <div className="flex md:order-2">
         <Dropdown
@@ -46,9 +49,9 @@ export default function Navigation() {
         <Navbar.Link href="/mainindex" active>
           Home
         </Navbar.Link>
-        <Navbar.Link href="#">About</Navbar.Link>
-        <Navbar.Link href="#">Services</Navbar.Link>
-        <Navbar.Link href="#footer">Contact</Navbar.Link>
+        <Navbar.Link href="#sec-about" >About</Navbar.Link>
+        <Navbar.Link href="#sec-services">Services</Navbar.Link>
+        <Navbar.Link href="#sec-contact">Contact</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );

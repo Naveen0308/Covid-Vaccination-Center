@@ -35,6 +35,14 @@ export default function Search({ allCenters, setFilteredCenters }) {
     }
   };
 
+  useEffect(() => {
+    // Scroll to the section with id 'sec-about' when the component mounts
+    const section = document.getElementById('sec-services');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+
   return (
     <div className="flex flex-col h-full">
       <div className="flex justify-center items-center h-full">

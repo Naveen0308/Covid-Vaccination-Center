@@ -22,8 +22,14 @@ export default function RectangleCard({ center, slot, centerId, date }) {
     fetchData();
   },[date])
   const handleBookSlotClick = () => {
+    const datestring = date.toString();
+    if(datestring.length>10){
+      alert("Please select a valid date");
+    }
+    else{
     // const centerId = center?.id || ''; // Replace with the actual ID property of your center object
     navigate(`/${centerId}/bookslot/${slot}/${date}`);
+    }
   };
   const handleNoslot = () => {
     alert("No slot avaliable for this center on this date");

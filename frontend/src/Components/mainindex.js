@@ -9,6 +9,7 @@ import Mainfooter from './footer';
 import UserContext from '../UserContext';
 import { Button } from 'flowbite-react';
 import { HiOutlineArrowRight } from 'react-icons/hi';
+import About from './About';
 
 export default function Mainindex() {
   const [allCenters, setAllCenters] = useState([]);
@@ -69,6 +70,13 @@ export default function Mainindex() {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+  useEffect(() => {
+    // Scroll to the section with id 'sec-about' when the component mounts
+    const section = document.getElementById('sec-about');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
 
 
   return (
@@ -77,10 +85,13 @@ export default function Mainindex() {
       <Carousell />
       {/* <Search allCenters={allCenters} setAllCenters={setAllCenters} />
       */}
-
-
+      <section id='sec-about'>
+        <About />
+        </section>
+        
 <div className="flex flex-col h-full">
       <div className="flex justify-center items-center h-full">
+        <section id='sec-services'>
         <form onSubmit={handleSearchSubmit}>
           <label
             htmlFor="default-search"
@@ -126,7 +137,9 @@ export default function Mainindex() {
             </button>
           </div>
         </form>
+        </section>
       </div>
+      
       <div className="ml-auto mt-auto">
         {userId === 0 ? (
           <Button color="failure" onClick={handleCenterBookSlotClick}>
@@ -154,7 +167,9 @@ export default function Mainindex() {
         paginate={paginate}
         currentPage={currentPage}
       />
+      <section id='sec-contact'>
       <Mainfooter />
+      </section>
     </div>
   );
 }

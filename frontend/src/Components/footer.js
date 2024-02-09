@@ -1,20 +1,24 @@
 
 import { Footer } from 'flowbite-react';
 import { BsDribbble, BsFacebook, BsGithub, BsInstagram, BsTwitter } from 'react-icons/bs';
-import logo from '../images/cc.png'
+import logo from '../images/VCB.png'
 
 export default function Mainfooter() {
   return (
     <Footer container id="footer">
       <div className="w-full">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
+          
           <div>
+          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Vaccination Center Booking</span> 
             <Footer.Brand
-              href="https://flowbite.com"
+              href="#"
               src={logo}
               alt="Flowbite Logo"
-              name="Vaccination Center"
+              // name="Vaccination Center Booking"
+              className="mr-3 h-13 sm:h-20"
             />
+            {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Vaccination Center Bokking</span>  */}
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
             <div>
