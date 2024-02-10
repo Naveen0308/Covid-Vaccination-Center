@@ -3,6 +3,9 @@ import { Button, Card, Label, TextInput } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
+
+  const serverurl=process.env.REACT_APP_SERVERURL;
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
@@ -40,7 +43,7 @@ export default function Signup() {
       }
   
       // Send a POST request to the backend API for signup
-      const response = await fetch('http://localhost:5000/api/signup', {
+      const response = await fetch(serverurl+`/api/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

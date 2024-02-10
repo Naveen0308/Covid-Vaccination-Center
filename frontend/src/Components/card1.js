@@ -10,6 +10,8 @@ const Cardcontent1 = ({ center,centerId }) => {
   const navigate = useNavigate();
   const { userId } = useContext(UserContext);
 
+  const serverurl=process.env.REACT_APP_SERVERURL;
+
   const handleBookSlotClick = () => {
     // Assuming your center object has an 'id' property
     console.log(centerId);
@@ -18,7 +20,7 @@ const Cardcontent1 = ({ center,centerId }) => {
 
   const handleDeleteCenter=async()=>{
     try{
-      const response=await axios.post(`http://localhost:5000/api/deleteCenter/${centerId}`);
+      const response=await axios.post(serverurl+`/api/deleteCenter/${centerId}`);
       console.log(response);
 // Force a complete reload, ignoring the cache
 window.location.reload(true);
@@ -58,6 +60,7 @@ window.location.reload(true);
           </svg>
         </Button>
         ):null}
+        {userId === 0?null:(
         <Button onClick={handleBookSlotClick}>
           Book Center
           <svg
@@ -72,7 +75,7 @@ window.location.reload(true);
               clipRule="evenodd"
             />
           </svg>
-        </Button>
+        </Button>)}
       </Card>
     </div>
   );

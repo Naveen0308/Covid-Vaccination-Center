@@ -17,7 +17,8 @@ const Bookslot = () => {
   const {userId} = useContext(UserContext);
   const navigate = useNavigate();
 
-  
+  const serverurl=process.env.REACT_APP_SERVERURL;
+
   const pathname = window.location.pathname;
   const match = pathname.split('/');
   const id = match ? match[3] : null;
@@ -29,7 +30,7 @@ const Bookslot = () => {
 
     if (id != null) {
       try {
-        const response = await fetch('http://localhost:5000/api/all-center');
+        const response = await fetch(serverurl+`/api/all-center`);
         const data = await response.json();
         
         if (!response.ok) {
@@ -51,6 +52,7 @@ const Bookslot = () => {
       console.error("No ID found in the URL");
     }
   };
+ 
   
   console.log("user's id",userId)
   const handleSubmit = async (e) => {
@@ -62,7 +64,7 @@ const Bookslot = () => {
         //   console.error('Invalid center data:', center);
       //   throw new Error('Invalid center data');
       // }
-      const response = await fetch('http://localhost:5000/api/book-slot', {
+      const response = await fetch(serverurl+`/api/book-slot`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

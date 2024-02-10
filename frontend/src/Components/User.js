@@ -6,10 +6,14 @@ import UserContext from "../UserContext";
 
 
 export default function User() {
+
+    const serverurl=process.env.REACT_APP_SERVERURL;
+
+
     const [userData,setUserData] = useState();
     const {userId} = useContext(UserContext);
     useEffect(()=>{
-        axios.get(`http://localhost:5000/api/getUser/${userId}`)
+        axios.get(serverurl+`/api/getUser/${userId}`)
         .then((res)=>{
             console.log("user data frontend",res.body);
             setUserData(res.data.user);

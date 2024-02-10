@@ -8,6 +8,7 @@ const Admin = () => {
   const navigate = useNavigate();
   let {userId,setUserId} = useContext(UserContext);
   const {emailId,setEmailId}=useContext(UserContext);
+  
   const handleAdminClick = () => {
     // Perform login logic
     const enteredEmail = document.getElementById('email1').value;

@@ -10,6 +10,8 @@ export default function CenterForm() {
     centerAddress: '',
   });
 
+  const serverurl=process.env.REACT_APP_SERVERURL;
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCenterData((prevData) => ({
@@ -22,7 +24,7 @@ export default function CenterForm() {
     try {
       const { centerName, location, centerAddress } = centerData;
 
-      const response = await fetch('http://localhost:5000/api/add-center', {
+      const response = await fetch(serverurl+`/api/add-center`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

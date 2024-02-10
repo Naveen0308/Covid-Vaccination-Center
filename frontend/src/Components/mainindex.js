@@ -12,6 +12,9 @@ import { HiOutlineArrowRight } from 'react-icons/hi';
 import About from './About';
 
 export default function Mainindex() {
+
+  const serverurl=process.env.REACT_APP_SERVERURL;
+
   const [allCenters, setAllCenters] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [centersPerPage] = useState(9);
@@ -27,30 +30,31 @@ export default function Mainindex() {
   
     const handleSearchSubmit = (e) => {
       e.preventDefault();
-  
+      console.log("ws",searchLocation.trim());
       if (searchLocation.trim() === '') {
         // If the search location is empty, show all centers
-        setAllCenters(allCenters);
+        fetchCenters();
+        console.log("all centers",allCenters);
+        // setAllCenters(allCenters);
       } else {
         // Filter centers based on the entered location
         const filteredCenters = allCenters.filter((center) =>
           center.location.toLowerCase().includes(searchLocation.toLowerCase())
         );
+        console.log("filtered centers",filteredCenters);
   
         // Set the filtered centers using the provided setter function
         setAllCenters(filteredCenters);
   
-        // Handle the filtered centers (you can pass them to the parent component, etc.)
-        console.log(filteredCenters);
       }
     };
 
 
-
+    const [init, setInit]= useState(true);
 
   const fetchCenters = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/all-center');
+      const response = await fetch(serverurl+`/api/all-center`);
       const data = await response.json();
       setAllCenters(data.center);
     } catch (error) {
@@ -60,7 +64,12 @@ export default function Mainindex() {
 
   useEffect(() => {
     fetchCenters();
-  }, [searchLocation,]);
+    if(init){
+      window.scrollTo(0, 0);
+      setInit(false);
+    }
+    
+  }, []);
 
   // Calculate the indexes of the first and last centers on the current page
   const indexOfLastCenter = currentPage * centersPerPage;
@@ -70,13 +79,16 @@ export default function Mainindex() {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-  useEffect(() => {
-    // Scroll to the section with id 'sec-about' when the component mounts
-    const section = document.getElementById('sec-about');
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, []);
+  // useEffect(() => {
+  //   // Scroll to the section with id 'sec-about' when the component mounts
+  //   const section = document.getElementById('sec-about');
+  //   if (section) {
+  //     section.scrollIntoView({ behavior: 'smooth' });
+  //   }
+  // }, []);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // })
 
 
   return (
@@ -92,7 +104,7 @@ export default function Mainindex() {
 <div className="flex flex-col h-full">
       <div className="flex justify-center items-center h-full">
         <section id='sec-services'>
-        <form onSubmit={handleSearchSubmit}>
+        <form>
           <label
             htmlFor="default-search"
             className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -124,14 +136,18 @@ export default function Mainindex() {
               placeholder="Search by Location"
               value={searchLocation}
               onChange={(e) =>{
+                if(e.target.value.trim() === ''){
+                  fetchCenters();
+                }
                 setSearchLocation(e.target.value)
-                handleSearchSubmit(e);
               }
-              } 
+            } 
             />
             <button
               type="submit"
-              className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm leading-none px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm leading-none px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800
+              "
+              onClick={(e)=>handleSearchSubmit(e)}
             >
               Search
             </button>

@@ -54,10 +54,10 @@ const About = () => {
         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           COVID-19
         </h5>
-        <p className="font-normal text-gray-700 dark:text-gray-400">
-          Aduiiufcsuihcihiuisgzc<br />
-          Location:pjsjcpojsojj <br />
-          Available Slot;lvd'jv 
+        <p className="font-bold text-gray-700 dark:text-gray-400">
+          Since:    2019<br />
+          Origin:   China<br />
+          Symptoms:  Fever,Cold,Cough,Headache           
         </p>
       </Card>
   </div>

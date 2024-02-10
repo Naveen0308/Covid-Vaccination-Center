@@ -11,6 +11,7 @@ export default function Center(){
     const [date,setDate] = useState(Date.now());
 
     const fetchCenter = async() => {
+      const serverurl=process.env.REACT_APP_SERVERURL;
         // Get the pathname from the current URL
         const pathname = window.location.pathname;
     
@@ -22,7 +23,7 @@ export default function Center(){
         // Call the function to fetch the center based on the extracted ID
         if (id != null && date) { // Check if both ID and date are present
             try {
-                const response = await fetch(`http://localhost:5000/api/get-center/${id}`);
+                const response = await fetch(serverurl+`/api/get-center/${id}`);
                 if (!response.ok) throw new Error("fetch error");
 
                 const data = await response.json();

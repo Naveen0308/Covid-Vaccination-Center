@@ -6,6 +6,9 @@ import UserContext from "../UserContext";
 import { Alert } from 'flowbite-react';
 
 const Result = () => {
+
+  const serverurl=process.env.REACT_APP_SERVERURL;
+
   const [userDetails, setUserDetails] = useState({});
   const [bookings, setBookings] = useState([]);
   const { userId } = useContext(UserContext);
@@ -16,7 +19,7 @@ const Result = () => {
     const fetchUserDetails = async () => {
       try {
         // Replace '1' with the actual user ID you want to fetch
-        const response = await fetch(`http://localhost:5000/api/getUser/currentBooking/${userId}`);
+        const response = await fetch(serverurl+`/api/getUser/currentBooking/${userId}`);
         const data = await response.json();
 
         if (!response.ok) {

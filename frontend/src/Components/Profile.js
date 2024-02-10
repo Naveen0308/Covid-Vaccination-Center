@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Card, Button } from 'flowbite-react';
+import { Card, Button,Spinner } from 'flowbite-react';
 import { useNavigate } from "react-router-dom";
 import Navigation from "./navbar";
 import Mainfooter from "./footer";
@@ -8,6 +8,9 @@ import axios from "axios";
 import UserContext from "../UserContext";
 
 export default function Profile() {
+
+  const serverurl=process.env.REACT_APP_SERVERURL;
+
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null); // Initialize with null
   const { userId } = useContext(UserContext);
@@ -18,7 +21,7 @@ export default function Profile() {
   };
   const fetchData2 = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/getUser/${userId}`);
+      const response = await axios.get(serverurl+`/api/getUser/${userId}`);
       const { bookings, user } = response.data;
       console.log(userData,bookings)
       setBookedSlots(bookings);
@@ -32,7 +35,7 @@ export default function Profile() {
       
       const fetchData = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/api/getUser/${userId}`);
+          const response = await axios.get(serverurl+`/api/getUser/${userId}`);
           const { bookings, user } = response.data;
           console.log(userData,bookings)
           setBookedSlots(bookings);
@@ -48,7 +51,7 @@ export default function Profile() {
     const handleCancel=async(id)=>{
       try{
         console.log("htjfgkhgk");
-        const response=await axios.post(`http://localhost:5000/api/cancelBooking/${id}`);
+        const response=await axios.post(serverurl+`/api/cancelBooking/${id}`);
         console.log(response);
         fetchData2();
       }catch (error) {
@@ -58,7 +61,10 @@ export default function Profile() {
   
     if (userData === null) {
       // Render loading state while waiting for data
-      return <div>Loading...</div>;
+      return <div className="flex justify-center">
+      <Spinner aria-label="Extra large spinner example" size="xl" />
+        <p className="text-lg font-semibold">Loading...</p>
+        </div>;
     }
   
     return (

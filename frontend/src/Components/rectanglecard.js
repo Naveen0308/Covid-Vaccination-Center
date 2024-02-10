@@ -4,6 +4,9 @@ import { HiOutlineArrowRight } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 
 export default function RectangleCard({ center, slot, centerId, date }) {
+
+  const serverurl=process.env.REACT_APP_SERVERURL;
+
   const navigate = useNavigate();
   const slots = ["9:00 AM - 10:00 AM", "11:00 AM - 12:00 PM", "1:00 PM - 2:00 PM","3:00 PM - 4:00 PM"];
   const [slotsData, setSlotsData] = useState(2);
@@ -11,7 +14,7 @@ export default function RectangleCard({ center, slot, centerId, date }) {
     const fetchData = async () => {
       try{
       console.log(date);
-      const response= await fetch(`http://localhost:5000/api/get-slot/${centerId}/${slot}/${date.toString()}`);
+      const response= await fetch(serverurl+`/api/get-slot/${centerId}/${slot}/${date.toString()}`);
       const data = await response.json();
       console.log("data",data.data);
       setSlotsData(25 - data.data.length);

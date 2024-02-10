@@ -14,7 +14,7 @@ export default function Login() {
     email: '',
     password: '',
   });
-
+  const serverurl=process.env.REACT_APP_SERVERURL;
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -27,7 +27,7 @@ export default function Login() {
     try {
       const { email, password } = formData;
   
-      const response = await fetch('http://localhost:5000/api/login', {
+      const response = await fetch(serverurl+`/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
