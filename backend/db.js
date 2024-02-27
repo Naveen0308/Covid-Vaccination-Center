@@ -22,6 +22,7 @@ db.connect((err) => {
   }
 });
 
+  
 // Function to execute a query
 const executeQuery = (sql, values = []) => {
   return new Promise((resolve, reject) => {
